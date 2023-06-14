@@ -15,6 +15,6 @@ jobs:
           shell: bash
           options: --user 1000:1000 -v ${{ github.workspace }}:/src
           run: |
-            gitleaks detect --source=. --verbose --no-git --report-path=gitleaks-reports.json
+            gitleaks detect --source= --verbose --report-path=gitleaks-reports.json
    
        
