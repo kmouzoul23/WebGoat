@@ -18,6 +18,8 @@ jobs:
             gitleaks detect --source=/src --verbose --no-git --report-path gitleaks-reports.json
             cat gitleaks-reports.json
             pwd
+            ls
+            
             
             
             
