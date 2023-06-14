@@ -10,13 +10,8 @@ jobs:
           fetch-depth: 0
       - name: Checkout
         run: |
-            docker run --user 0 --volume ${{ github.workspace }}:/src --interactive zricethezav/gitleaks detect --source=/src --verbose --no-git --report-path gitleaks-reports.json
-      - name: cat file
-        if: always()
-        run: cat gitleaks-reports.json
-      - name: move file
-        if: always()
-        run: cp gitleaks-reports.json  ${{ github.workspace }}/gitleaks-reports.json     
+            docker run --user 0 --volume ${{ github.workspace }}:/src --interactive zricethezav/gitleaks detect --source=/src --verbose --no-git --report-path gitleaks-reports.json \
+            docker cp gitleaks-reports.json :/${{ github.workspace }}    
       - name: upload_artifacts   
         uses: actions/upload-artifact@v3
         if: always()
