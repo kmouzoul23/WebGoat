@@ -14,9 +14,6 @@ jobs:
       - name: tade
         if: always()
         run: ls
-      - name: tade2
-        if: always()
-        run: ls /src
       - name: upload_artifacts   
         uses: actions/upload-artifact@v3
         if: always()
