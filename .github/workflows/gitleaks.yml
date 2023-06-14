@@ -6,7 +6,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        if: always()
         with:
           fetch-depth: 0
       - name: Checkout
@@ -17,6 +16,7 @@ jobs:
             ls
       - name: upload_artifacts   
         uses: actions/upload-artifact@v3
+        if: always()
         with:
           name: my-artifact
           path: gitleaks-reports.json
