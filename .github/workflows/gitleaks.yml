@@ -12,8 +12,10 @@ jobs:
         run: |
             docker run --user 0 --volume ${{ github.workspace }}:/src --interactive zricethezav/gitleaks detect --source=/src --verbose --no-git --report-path gitleaks-reports.json
       - name: cat file
+        if: always()
         run: cat gitleaks-reports.json
       - name: move file
+        if: always()
         run: cp gitleaks-reports.json  ${{ github.workspace }}/gitleaks-reports.json     
       - name: upload_artifacts   
         uses: actions/upload-artifact@v3
