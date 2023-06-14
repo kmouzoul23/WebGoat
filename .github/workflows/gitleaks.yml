@@ -13,9 +13,9 @@ jobs:
         with:
           image: zricethezav/gitleaks
           shell: bash
-          options: --user root -v ${{ github.workspace }}:/src
+          options: --user 1000:1000 -v ${{ github.workspace }}:/src
           run: |
-            gitleaks detect --source=/src --verbose --report-path gitleaks-reports.json
+            gitleaks detect --source=/src --verbose --no-git --report-path gitleaks-reports.json
             
             
             
