@@ -16,6 +16,8 @@ jobs:
           options: -u 0 -v ${{ github.workspace }}:/src
           run: |
             gitleaks detect --source=/src --verbose --no-git --report-path gitleaks-reports.json
+            cat gitleaks-reports.json
+            mv gitleaks-reports.json ${{ github.workspace }}/gitleaks-reports.json
             
             
             
