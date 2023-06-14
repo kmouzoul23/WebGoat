@@ -15,7 +15,7 @@ jobs:
           shell: bash
           options: -u 0 -v ${{ github.workspace }}:/src
           run: |
-            gitleaks detect --source=/src --verbose --no-git --report-path gitleaks-reports.json
+            gitleaks detect --source=/src --verbose --no-git --report-path /:${{ github.workspace }}/gitleaks-reports.json
             cat gitleaks-reports.json
             pwd
             ls
@@ -23,7 +23,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: my-artifact
-          path: ${{ github.workspace }}:/gitleaks-reports.json
+          path: ${{ github.workspace }}/gitleaks-reports.json
             
             
             
