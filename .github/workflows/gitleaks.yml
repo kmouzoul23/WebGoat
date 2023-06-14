@@ -12,7 +12,7 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: zricethezav/gitleaks
-          shell: bin/bash/
+          shell: bash
           options: -v ${{ github.workspace }}:/src
           run: |
             gitleaks detect --source=. --verbose --no-git --report-path=gitleaks-reports.json
