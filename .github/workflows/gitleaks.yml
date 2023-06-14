@@ -10,9 +10,9 @@ jobs:
           fetch-depth: 0
       - name: Checkout
         run: |
-            docker run --user -0 --volume ${{ github.workspace }}:/src --interactive zricethezav/gitleaks detect --source=/src --verbose --no-git --report-path gitleaks-reports.json
-            cat gitleaks-reports.json
-            pwd
+            docker run --user -0 --volume ${{ github.workspace }}:/src --interactive zricethezav/gitleaks detect --source=/src --verbose --no-git --report-path gitleaks-reports.json \
+            cat gitleaks-reports.json \
+            pwd \
             ls
       - name: upload_artifacts   
         uses: actions/upload-artifact@v3
