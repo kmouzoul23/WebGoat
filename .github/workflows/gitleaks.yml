@@ -9,8 +9,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Checkout
-        with:
-          run: |
+        run: |
             docker run --user -0 --volume ${{ github.workspace }}:/src --interactive --tty --entrypoint /bin/bash zricethezav/gitleaks \
             gitleaks detect --source=/src --verbose --no-git --report-path gitleaks-reports.json
             cat gitleaks-reports.json
