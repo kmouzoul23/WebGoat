@@ -1,4 +1,4 @@
-name: TruffleHog Secrets Scan
+name: Gitleaks Secrets Scan
 on: [push]
 jobs:
   Credentials_Scanning:
