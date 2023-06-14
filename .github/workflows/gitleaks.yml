@@ -1,7 +1,7 @@
 name: TruffleHog Secrets Scan
 on: [push]
 jobs:
-  TruffleHog:
+  Credentials_Scanning:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
