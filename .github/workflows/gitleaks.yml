@@ -3,10 +3,10 @@ on: [push]
 jobs:
   TruffleHog:
     runs-on: ubuntu-latest
-    continue-on-error: true
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        if: always()
         with:
           fetch-depth: 0
       - name: Checkout
