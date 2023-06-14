@@ -8,18 +8,15 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Checkout 
-        uses: addnab/docker-run-action@v3
+      - name: Checkout
         with:
-          image: zricethezav/gitleaks
-          shell: bash
-          options: -u 0 -v ${{ github.workspace }}:/src
           run: |
+            docker run --user -0 --volume ${{ github.workspace }}:/src --interactive --tty --entrypoint /bin/bash zricethezav/gitleaks \
             gitleaks detect --source=/src --verbose --no-git --report-path gitleaks-reports.json
             cat gitleaks-reports.json
             pwd
             ls
-      - name: putses   
+      - name: upload_artifacts   
         uses: actions/upload-artifact@v3
         with:
           name: my-artifact
