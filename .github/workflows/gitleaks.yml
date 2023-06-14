@@ -10,7 +10,7 @@ jobs:
           fetch-depth: 0
       - name: Checkout
         run: |
-            docker run --user root --volume ${{ github.workspace }}:/src --interactive zricethezav/gitleaks detect --source=/src --verbose --report-path /src/gitleaks-reports.json
+            docker run --user root --volume ${{ github.workspace }}:/src --interactive zricethezav/gitleaks detect --source=/src --verbose --no-git --report-path /src/gitleaks-reports.json
       - name: tade
         if: always()
         run: ls
