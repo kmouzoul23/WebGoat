@@ -11,32 +11,25 @@ jobs:
       - name: Checkout
         run: |
             docker run --user root --volume ${{ github.workspace }}:/src --interactive zricethezav/gitleaks detect --source=/src --verbose --no-git --report-path /src/gitleaks-reports.json
-      - name: tade
-        if: always()
+        continue-on-error: true     
+      - name: list files
         run: ls
-      - name: upload_artifacts   
+      - name: upload_gitleaks_report   
         uses: actions/upload-artifact@v3
-        if: always()
         with:
           name: my-artifact
           path:  ${{ github.workspace }}/gitleaks-reports.json
-          
-      - name: Build project with Maven
-        if: always()
-        run: mvn clean install
       - name: Depcheck
-        if: always()
         uses: dependency-check/Dependency-Check_Action@main
         id: Depcheck
         with:
-          project: 'test'
+          project: 'WebGoat'
           path: '.'
           format: 'HTML'
           out: 'reports' # this is the default, no need to specify unless you wish to override it
           args: >
             --enableRetired
-      - name: Upload Test results
-        if: always()
+      - name: Upload SCA results
         uses: actions/upload-artifact@master
         with:
            name: Depcheck report
