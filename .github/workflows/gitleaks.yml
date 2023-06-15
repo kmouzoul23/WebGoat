@@ -22,8 +22,10 @@ jobs:
           path:  ${{ github.workspace }}/gitleaks-reports.json
           
       - name: Build project with Maven
+        if: always()
         run: mvn clean install
       - name: Depcheck
+        if: always()
         uses: dependency-check/Dependency-Check_Action@main
         id: Depcheck
         with:
@@ -34,6 +36,7 @@ jobs:
           args: >
             --enableRetired
       - name: Upload Test results
+        if: always()
         uses: actions/upload-artifact@master
         with:
            name: Depcheck report
