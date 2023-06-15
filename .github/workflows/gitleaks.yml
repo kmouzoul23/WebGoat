@@ -1,4 +1,4 @@
-name: Gitleaks Secrets Scan
+name: SCA and Secrets Scan
 on: [push]
 jobs:
   Credentials_Scanning:
