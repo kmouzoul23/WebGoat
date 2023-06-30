@@ -1,40 +1,27 @@
-name: SCA and Secrets Scan
+name: Gitleaks Secrets Scan
 on: [push]
 jobs:
   Credentials_Scanning:
     runs-on: ubuntu-latest
     steps:
+
       - name: Checkout code
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Checkout
+
+      - name: Run Gitleaks from container
         run: |
-            docker run --user root --volume ${{ github.workspace }}:/src --interactive zricethezav/gitleaks detect --source=/src --verbose --no-git --report-path /src/gitleaks-reports.json
-        continue-on-error: true     
-      - name: user privileges
-        run: id
-      - name: upload_gitleaks_report   
+            docker create --name GitLeaksContainer --entrypoint /bin/bash --interactive --volume ${{ github.workspace }}:/src zricethezav/gitleaks 
+            docker start GitLeaksContainer
+            docker exec GitLeaksContainer id && docker exec GitLeaksContainer whoami
+            docker exec GitLeaksContainer git config --global --add safe.directory '/src'
+            docker exec GitLeaksContainer chown :1000 /src
+            docker exec GitLeaksContainer gitleaks detect --source=/src --verbose -c /src/gitleaks.toml --report-path /src/gitleaks-reports.json
+        continue-on-error: true
+
+      - name: upload_artifacts   
         uses: actions/upload-artifact@v3
         with:
-          name: my-artifact
+          name: Gitleaks Artifact Upload
           path:  ${{ github.workspace }}/gitleaks-reports.json
-      - name: Depcheck
-        uses: dependency-check/Dependency-Check_Action@main
-        id: Depcheck
-        with:
-          project: 'WebGoat'
-          path: '.'
-          format: 'HTML'
-          out: 'reports' # this is the default, no need to specify unless you wish to override it
-          args: >
-            --enableRetired
-      - name: Upload SCA results
-        uses: actions/upload-artifact@master
-        with:
-           name: Depcheck report
-           path: ${{github.workspace}}/reports
-            
-            
-   
-       
