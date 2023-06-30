@@ -12,8 +12,8 @@ jobs:
         run: |
             docker run --user 1001 --volume ${{ github.workspace }}:/src --interactive zricethezav/gitleaks detect --source=/src --verbose --no-git --report-path /src/gitleaks-reports.json
         continue-on-error: true     
-      - name: list files
-        run: ls
+      - name: user privileges
+        run: id
       - name: upload_gitleaks_report   
         uses: actions/upload-artifact@v3
         with:
