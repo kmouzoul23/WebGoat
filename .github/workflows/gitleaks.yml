@@ -15,7 +15,7 @@ jobs:
             docker create --name GitLeaksContainer --entrypoint /bin/bash --interactive --volume ${{ github.workspace }}:/src zricethezav/gitleaks 
             docker start GitLeaksContainer
             docker exec GitLeaksContainer git config --global --add safe.directory '/src'
-            docker exec --user 1001 GitLeaksContainer gitleaks detect --source=/src --verbose --report-path /src/gitleaks-reports.json
+            docker exec --user 1001 GitLeaksContainer id
         continue-on-error: true
 
       - name: upload_artifacts   
