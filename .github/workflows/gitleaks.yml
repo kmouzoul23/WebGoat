@@ -13,7 +13,7 @@ jobs:
       - name: Run Gitleaks from container
         run: |
             docker create --name GitLeaksContainer --entrypoint /bin/bash --interactive --volume ${{ github.workspace }}:/new_folder zricethezav/gitleaks 
-            docker start GitLeaksContainer
+            docker start GitLeaksContainer --interactive 
             docker exec GitLeaksContainer id && docker exec GitLeaksContainer whoami
             docker exec GitLeaksContainer git config --global --add safe.directory '/new_folder'
             docker exec GitLeaksContainer gitleaks detect --source=/new_folder --verbose -c /new_folder/gitleaks.toml --report-path /new_folder/gitleaks-reports.json
