@@ -12,7 +12,7 @@ jobs:
 
       - name: Run Gitleaks from container
         run: |
-            docker create --name GitLeaksContainer --user 1001 --entrypoint /bin/bash --interactive --volume ${{ github.workspace }}:/new_folder zricethezav/gitleaks
+            docker create --name GitLeaksContainer --entrypoint /bin/bash --interactive --volume ${{ github.workspace }}:/new_folder zricethezav/gitleaks
             docker start GitLeaksContainer
             docker exec GitLeaksContainer id && docker exec GitLeaksContainer whoami && docker exec GitLeaksContainer ls -l && docker exec GitLeaksContainer chmod u+rwx /new_folder && docker exec GitLeaksContainer touch /new_folder/test.json 
             docker exec GitLeaksContainer git config --global --add safe.directory '/new_folder'
