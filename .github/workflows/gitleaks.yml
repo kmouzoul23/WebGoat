@@ -20,7 +20,7 @@ jobs:
             docker start GitLeaksContainer
             docker exec GitLeaksContainer id && docker exec GitLeaksContainer whoami && docker exec GitLeaksContainer ls -l
             docker exec GitLeaksContainer git config --global --add safe.directory '/new_folder'
-            docker exec --user $(id -u):$(id -g) GitLeaksContainer gitleaks detect --source=/new_folder --verbose --report-path /new_folder/gitleaks-reports.json
+            docker exec --user $(id -u):$(id -g) GitLeaksContainer gitleaks detect --source=/new_folder --verbose --report-path /new_folder/gitleaks-reports.json | id 
         continue-on-error: true
 
       - name: upload_artifacts   
