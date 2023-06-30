@@ -9,9 +9,13 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-
+      - name: user privileges
+        run: ls -l
+      - name: directory
+        run: sudo chown :1000 ${{ github.workspace }}
       - name: Run Gitleaks from container
         run: |
+            ls -l
             docker create --name GitLeaksContainer --entrypoint /bin/bash --interactive --volume ${{ github.workspace }}:/new_folder zricethezav/gitleaks
             docker start GitLeaksContainer
             docker exec GitLeaksContainer id && docker exec GitLeaksContainer whoami && docker exec GitLeaksContainer ls -l && docker exec GitLeaksContainer chmod u+rwx /new_folder && docker exec GitLeaksContainer touch /new_folder/test.json 
