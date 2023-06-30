@@ -13,6 +13,10 @@ jobs:
         run: ls -l
       - name: directory
         run: sudo chown :1000 ${{ github.workspace }}
+      - name: user privileges
+        run: adduser gitleaks
+      - name: user privileges
+        run: su gitleaks
       - name: Run Gitleaks from container
         run: |
             ls -l
@@ -20,7 +24,7 @@ jobs:
             docker start GitLeaksContainer
             docker exec GitLeaksContainer id && docker exec GitLeaksContainer whoami && docker exec GitLeaksContainer ls -l
             docker exec GitLeaksContainer git config --global --add safe.directory '/new_folder'
-            docker exec --user gitleaks GitLeaksContainer bash -c "gitleaks detect --source=/new_folder --verbose --report-path /new_folder/gitleaks-reports.json ; id"
+            docker exec --user $(id -u):$(id -g) GitLeaksContainer bash -c "gitleaks detect --source=/new_folder --verbose --report-path /new_folder/gitleaks-reports.json ; id"
         continue-on-error: true
 
       - name: upload_artifacts   
