@@ -11,12 +11,6 @@ jobs:
           fetch-depth: 0
       - name: user privileges
         run: ls -l
-      - name: directory
-        run: sudo chown :1000 ${{ github.workspace }}
-      - name: user privileges
-        run: sudo adduser gitleaks
-      - name: user privileges
-        run: sudo su gitleaks
       - name: Run Gitleaks from container
         run: |
             ls -l
