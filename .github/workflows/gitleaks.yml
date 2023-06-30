@@ -14,9 +14,9 @@ jobs:
       - name: directory
         run: sudo chown :1000 ${{ github.workspace }}
       - name: user privileges
-        run: adduser gitleaks
+        run: sudo adduser gitleaks
       - name: user privileges
-        run: su gitleaks
+        run: sudo su gitleaks
       - name: Run Gitleaks from container
         run: |
             ls -l
