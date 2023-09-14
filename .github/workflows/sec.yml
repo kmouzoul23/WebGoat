@@ -1,5 +1,8 @@
-name: Gitleaks Secrets Scan
-on: [push]
+name: SCA and Secrets Scanning
+on: 
+  push:
+  pull_request:
+  
 jobs:
   Credentials_Scanning:
     runs-on: ubuntu-latest
@@ -13,7 +16,6 @@ jobs:
         run: ls -l
       - name: Run Gitleaks from container
         run: |
-            ls -l
             docker create --name GitLeaksContainer --user gitleaks --entrypoint /bin/bash --interactive --volume ${{ github.workspace }}:/new_folder zricethezav/gitleaks
             docker start GitLeaksContainer
             docker exec GitLeaksContainer id && docker exec GitLeaksContainer whoami && docker exec GitLeaksContainer ls -l
