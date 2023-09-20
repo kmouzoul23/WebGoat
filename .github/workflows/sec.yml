@@ -15,7 +15,8 @@ jobs:
       - name: user privileges
         run: ls -l
       - name: Run Gitleaks from container
-        run: docker run --interactive --entrypoint  /bin/bash --volume ${{ github.workspace }}:/new_folder zricethezav/gitleaks:v8.2.7 detect --source=/new_folder --no-git --verbose --report-path /new_folder/gitleaks-reports.json
+        run: |
+             docker run --rm gitleaks/gitleaks:latest id
         continue-on-error: true
 
       - name: upload_artifacts   
