@@ -15,13 +15,12 @@ jobs:
       - name: user privileges
         run: ls -l
       - name: Run Gitleaks from container
-        run:
-#            docker create --name GitLeaksContainer --entrypoint /bin/bash --interactive --volume ${{ github.workspace }}:/new_folder zricethezav/gitleaks
-#           docker start GitLeaksContainer
-#            docker exec GitLeaksContainer id && docker exec GitLeaksContainer whoami && docker exec GitLeaksContainer ls -l
-#            docker exec GitLeaksContainer git config --global --add safe.directory '/new_folder'
-#            docker exec GitLeaksContainer bash -c "gitleaks detect --source=/new_folder --verbose --report-path /new_folder/gitleaks-reports.json ; id"
-            docker run --rm --volume ${{ github.workspace }}:/new_folder zricethezav/gitleaks:latest gitleaks detect --source=/new_folder --verbose --no-git --report-path /new_folder/gitleaks-reports.json ; id
+        run: |
+            docker create --name GitLeaksContainer --entrypoint /bin/bash --interactive --volume ${{ github.workspace }}:/new_folder zricethezav/gitleaks
+            docker start GitLeaksContainer
+            docker exec GitLeaksContainer id && docker exec GitLeaksContainer whoami
+            docker exec GitLeaksContainer git config --global --add safe.directory '/new_folder'
+            docker exec GitLeaksContainer bash -c "gitleaks detect --source=/new_folder --verbose --report-path /new_folder/gitleaks-reports.json ; id"  
         continue-on-error: true
 
       - name: upload_artifacts   
