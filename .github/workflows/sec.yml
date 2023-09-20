@@ -16,7 +16,7 @@ jobs:
         run: ls -l
       - name: Run Gitleaks from container
         run: |
-             docker run --rm gitleaks/gitleaks:latest id
+             docker run --rm zricethezav/gitleaks:latest id
         continue-on-error: true
 
       - name: upload_artifacts   
